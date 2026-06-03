@@ -32,6 +32,23 @@ QLabel#lblAccount {
   color: #e9e7ff;
   font-weight: 600;
   background: transparent;
+  padding-right: 4px;
+}
+QPushButton#btnLogout {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 8px;
+  padding: 6px 16px;
+  font-weight: 600;
+  min-height: 34px;
+}
+QPushButton#btnLogout:hover {
+  background: rgba(255, 255, 255, 0.22);
+  border-color: #ffffff;
+}
+QPushButton#btnLogout:pressed {
+  background: rgba(15, 10, 40, 0.35);
 }
 
 QPushButton {
@@ -160,7 +177,8 @@ QLabel#lblAlert {
      <layout class="QHBoxLayout" name="topBarLayout">
       <item><widget class="QLabel" name="lblBrand"><property name="text"><string>Quản lý điểm — Quản trị viên</string></property></widget></item>
       <item><spacer name="sp1"><property name="orientation"><enum>Qt::Horizontal</enum></property><property name="sizeHint" stdset="0"><size><width>40</width><height>20</height></size></property></spacer></item>
-      <item><widget class="QLabel" name="lblAccount"><property name="text"><string>Admin [Đăng xuất]</string></property></widget></item>
+      <item><widget class="QLabel" name="lblAccount"><property name="text"><string>admin</string></property><property name="alignment"><set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set></property></widget></item>
+      <item><widget class="QPushButton" name="btnLogout"><property name="minimumSize"><size><width>112</width><height>34</height></size></property><property name="text"><string>Đăng xuất</string></property></widget></item>
      </layout>
     </widget>
    </item>
@@ -171,7 +189,7 @@ QLabel#lblAlert {
        <string>Tổng quan</string>
       </attribute>
       <layout class="QVBoxLayout" name="pageTongQuanLayout">
-       <item><widget class="QFrame" name="alertFrame"><layout class="QHBoxLayout" name="alertLayout"><item><widget class="QLabel" name="lblAlert"><property name="text"><string>2 tài khoản bị khóa do nhập sai mật khẩu 5 lần · 3 giảng viên chưa nhập điểm, deadline còn 2 ngày</string></property></widget></item><item><widget class="QPushButton" name="btnXuLyNgay"><property name="text"><string>Xử lý ngay</string></property></widget></item></layout></widget></item>
+       <item><widget class="QFrame" name="alertFrame"><layout class="QHBoxLayout" name="alertLayout"><item><widget class="QLabel" name="lblAlert"><property name="text"><string>Đang tải cảnh báo…</string></property></widget></item><item><widget class="QPushButton" name="btnXuLyNgay"><property name="text"><string>Xử lý ngay</string></property></widget></item></layout></widget></item>
        <item><layout class="QHBoxLayout" name="cardsLayout"><item><widget class="QPushButton" name="cardTongTaiKhoan"><property name="text"><string>Tổng tài khoản
 487
 Admin · GV · SV</string></property></widget></item><item><widget class="QPushButton" name="cardSinhVien"><property name="text"><string>Sinh viên
@@ -266,7 +284,7 @@ Cần xử lý</string></property></widget></item></layout></item>
        <item><widget class="QComboBox" name="cbAccKhoa"><item><property name="text"><string>Tất cả khoa</string></property></item></widget></item>
        <item><layout class="QHBoxLayout" name="accTopActions"><item><widget class="QPushButton" name="btnAccCreate"><property name="text"><string>+ Tạo tài khoản</string></property></widget></item><item><widget class="QPushButton" name="btnAccImport"><property name="text"><string>Import Excel</string></property></widget></item><item><spacer name="spAcc"><property name="orientation"><enum>Qt::Horizontal</enum></property><property name="sizeHint" stdset="0"><size><width>40</width><height>20</height></size></property></spacer></item></layout></item>
        <item><layout class="QHBoxLayout" name="accPills"><item><widget class="QPushButton" name="pillAll"><property name="text"><string>Tất cả (487)</string></property></widget></item><item><widget class="QPushButton" name="pillAdmin"><property name="text"><string>Admin (3)</string></property></widget></item><item><widget class="QPushButton" name="pillGV"><property name="text"><string>Giảng viên (34)</string></property></widget></item><item><widget class="QPushButton" name="pillSV"><property name="text"><string>Sinh viên (450)</string></property></widget></item><item><widget class="QPushButton" name="pillLocked"><property name="text"><string>Bị khóa (2)</string></property></widget></item><item><spacer name="spPill"><property name="orientation"><enum>Qt::Horizontal</enum></property><property name="sizeHint" stdset="0"><size><width>40</width><height>20</height></size></property></spacer></item></layout></item>
-       <item><widget class="QTableWidget" name="tbAccounts"><property name="alternatingRowColors"><bool>true</bool></property><column><property name="text"><string>Mã</string></property></column><column><property name="text"><string>Họ tên</string></property></column><column><property name="text"><string>Vai trò</string></property></column><column><property name="text"><string>Email</string></property></column><column><property name="text"><string>Khoa / Lớp</string></property></column><column><property name="text"><string>Trạng thái</string></property></column><column><property name="text"><string>Thao tác</string></property></column></widget></item>
+       <item><widget class="QTableWidget" name="tbAccounts"><property name="alternatingRowColors"><bool>true</bool></property><column><property name="text"><string>Mã</string></property></column><column><property name="text"><string>Họ tên</string></property></column><column><property name="text"><string>Vai trò</string></property></column><column><property name="text"><string>Email</string></property></column><column><property name="text"><string>Khoa</string></property></column><column><property name="text"><string>Lớp</string></property></column><column><property name="text"><string>Trạng thái</string></property></column><column><property name="text"><string>Thao tác</string></property></column></widget></item>
       </layout>
      </widget>
      <widget class="QWidget" name="pagePhanCong">
@@ -462,7 +480,50 @@ Cần xử lý</string></property></widget></item></layout></item>
         </layout>
        </item>
        <item>
-        <layout class="QHBoxLayout" name="dmMainSplit">
+        <widget class="QWidget" name="frameDmLopToolbar">
+         <property name="visible">
+          <bool>false</bool>
+         </property>
+         <layout class="QHBoxLayout" name="dmLopToolbarLayout">
+          <property name="spacing">
+           <number>8</number>
+          </property>
+          <item>
+           <widget class="QPushButton" name="btnDmThemLop">
+            <property name="text">
+             <string>+ Thêm lớp</string>
+            </property>
+            <property name="toolTip">
+             <string>Ghi nhận mã lớp mới vào danh mục (chưa cần sinh viên)</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="spDmLopToolbar">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QStackedWidget" name="swDmCatalog">
+         <widget class="QWidget" name="pageDmMon">
+          <layout class="QVBoxLayout" name="pageDmMonLayout">
+           <property name="leftMargin"><number>0</number></property>
+           <property name="topMargin"><number>0</number></property>
+           <property name="rightMargin"><number>0</number></property>
+           <property name="bottomMargin"><number>0</number></property>
+           <item>
+            <layout class="QHBoxLayout" name="dmMainSplit">
          <item>
           <widget class="QFrame" name="frameDmLeft">
            <property name="styleSheet">
@@ -513,7 +574,7 @@ Cần xử lý</string></property></widget></item></layout></item>
                 </property>
                 <column><property name="text"><string>Năm học / Học kỳ</string></property></column>
                 <column><property name="text"><string>Trạng thái</string></property></column>
-                <column><property name="text"><string>Sửa</string></property></column>
+                <column><property name="text"><string>Thao tác</string></property></column>
                </widget>
               </item>
              </layout>
@@ -539,7 +600,132 @@ Cần xử lý</string></property></widget></item></layout></item>
            </item>
           </layout>
          </item>
-        </layout>
+            </layout>
+           </item>
+          </layout>
+         </widget>
+         <widget class="QWidget" name="pageDmKhoa">
+          <layout class="QVBoxLayout" name="pageDmKhoaLayout">
+           <property name="leftMargin"><number>0</number></property>
+           <property name="topMargin"><number>0</number></property>
+           <property name="rightMargin"><number>0</number></property>
+           <property name="bottomMargin"><number>0</number></property>
+           <item>
+            <layout class="QHBoxLayout" name="dmKhoaTop">
+             <item><widget class="QLabel" name="lblDmKhoaTitle"><property name="text"><string>Danh mục khoa</string></property><property name="styleSheet"><string notr="true">font-weight:700;</string></property></widget></item>
+             <item><spacer name="spDmKhoa"><property name="orientation"><enum>Qt::Horizontal</enum></property><property name="sizeHint" stdset="0"><size><width>40</width><height>20</height></size></property></spacer></item>
+             <item><widget class="QPushButton" name="btnDmThemKhoa"><property name="text"><string>+ Thêm khoa</string></property></widget></item>
+            </layout>
+           </item>
+           <item>
+            <widget class="QTableWidget" name="tbDmKhoa">
+             <property name="alternatingRowColors"><bool>true</bool></property>
+             <column><property name="text"><string>Mã khoa</string></property></column>
+             <column><property name="text"><string>Tên khoa</string></property></column>
+             <column><property name="text"><string>Thao tác</string></property></column>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+         <widget class="QWidget" name="pageDmLop">
+          <layout class="QVBoxLayout" name="pageDmLopLayout">
+           <property name="leftMargin"><number>0</number></property>
+           <property name="topMargin"><number>0</number></property>
+           <property name="rightMargin"><number>0</number></property>
+           <property name="bottomMargin"><number>0</number></property>
+           <item>
+            <layout class="QHBoxLayout" name="dmLopTop">
+             <item><widget class="QLabel" name="lblDmLopTitle"><property name="text"><string>Danh sách lớp (theo sinh viên)</string></property><property name="styleSheet"><string notr="true">font-weight:700;</string></property></widget></item>
+             <item><spacer name="spDmLopTop"><property name="orientation"><enum>Qt::Horizontal</enum></property><property name="sizeHint" stdset="0"><size><width>40</width><height>20</height></size></property></spacer></item>
+             <item><widget class="QPushButton" name="btnDmLopLamMoi"><property name="text"><string>Làm mới</string></property></widget></item>
+            </layout>
+           </item>
+           <item>
+            <widget class="QSplitter" name="splitDmLopSv">
+             <property name="orientation"><enum>Qt::Vertical</enum></property>
+             <property name="childrenCollapsible"><bool>false</bool></property>
+             <widget class="QWidget" name="topLopWrap" native="true">
+              <layout class="QVBoxLayout" name="topLopWrapLayout">
+               <property name="leftMargin"><number>0</number></property>
+               <property name="topMargin"><number>0</number></property>
+               <property name="rightMargin"><number>0</number></property>
+               <property name="bottomMargin"><number>0</number></property>
+               <item>
+                <widget class="QTableWidget" name="tbDmLop">
+                 <property name="alternatingRowColors"><bool>true</bool></property>
+                 <column><property name="text"><string>Lớp</string></property></column>
+                 <column><property name="text"><string>Sĩ số</string></property></column>
+                 <column><property name="text"><string>Thao tác</string></property></column>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+             <widget class="QWidget" name="botSvWrap" native="true">
+              <layout class="QVBoxLayout" name="botSvWrapLayout">
+               <property name="leftMargin"><number>0</number></property>
+               <property name="topMargin"><number>0</number></property>
+               <property name="rightMargin"><number>0</number></property>
+               <property name="bottomMargin"><number>0</number></property>
+               <item>
+                <layout class="QHBoxLayout" name="rowSvQuanLy">
+                 <item><widget class="QLabel" name="lblSvQuanLy"><property name="text"><string>Quản lý danh sách sinh viên theo lớp</string></property><property name="styleSheet"><string notr="true">font-weight:700;</string></property></widget></item>
+                 <item><widget class="QLabel" name="lblSvQuanLyLop"><property name="text"><string>Lớp:</string></property></widget></item>
+                 <item><widget class="QComboBox" name="cbSvQuanLyLop"><property name="minimumSize"><size><width>220</width><height>0</height></size></property></widget></item>
+                 <item><widget class="QLineEdit" name="txtSvQuanLyTim"><property name="placeholderText"><string>Tìm MSSV, họ tên…</string></property></widget></item>
+                 <item><widget class="QPushButton" name="btnDmSvLopLamMoi"><property name="text"><string>Làm mới</string></property><property name="toolTip"><string>Tải lại danh sách sinh viên và sĩ số lớp</string></property></widget></item>
+                </layout>
+               </item>
+               <item>
+                <widget class="QTableWidget" name="tbSvQuanLyLop">
+                 <property name="alternatingRowColors"><bool>true</bool></property>
+                 <column><property name="text"><string>MSSV</string></property></column>
+                 <column><property name="text"><string>Họ tên</string></property></column>
+                 <column><property name="text"><string>Lớp</string></property></column>
+                 <column><property name="text"><string>Khoa</string></property></column>
+                 <column><property name="text"><string>TT học tập</string></property></column>
+                 <column><property name="text"><string>GPA10</string></property></column>
+                 <column><property name="text"><string>Tài khoản</string></property></column>
+                 <column><property name="text"><string>Thao tác</string></property></column>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="lblDmLopNote">
+             <property name="text">
+              <string>Chọn một dòng ở bảng trên để lọc nhanh lớp tương ứng. Dùng « + Thêm lớp » trên thanh công cụ để tạo mã lớp trước khi có sinh viên.</string>
+             </property>
+             <property name="wordWrap"><bool>true</bool></property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+         <widget class="QWidget" name="pageDmNamHoc">
+          <layout class="QVBoxLayout" name="pageDmNamHocLayout">
+           <property name="leftMargin"><number>0</number></property>
+           <property name="topMargin"><number>0</number></property>
+           <property name="rightMargin"><number>0</number></property>
+           <property name="bottomMargin"><number>0</number></property>
+           <item>
+            <layout class="QHBoxLayout" name="dmNamHocTop">
+             <item><widget class="QLabel" name="lblDmNamHocTitle"><property name="text"><string>Năm học / Học kỳ</string></property><property name="styleSheet"><string notr="true">font-weight:700;</string></property></widget></item>
+             <item><spacer name="spDmNamHoc"><property name="orientation"><enum>Qt::Horizontal</enum></property><property name="sizeHint" stdset="0"><size><width>40</width><height>20</height></size></property></spacer></item>
+             <item><widget class="QPushButton" name="btnDmThemHocKyPage"><property name="text"><string>+ Thêm HK</string></property></widget></item>
+            </layout>
+           </item>
+           <item>
+            <widget class="QTableWidget" name="tbDmHocKyPage">
+             <property name="alternatingRowColors"><bool>true</bool></property>
+             <column><property name="text"><string>Năm học / Học kỳ</string></property></column>
+             <column><property name="text"><string>Trạng thái</string></property></column>
+             <column><property name="text"><string>Thao tác</string></property></column>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </widget>
        </item>
       </layout>
      </widget>
